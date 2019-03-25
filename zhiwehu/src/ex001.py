@@ -14,7 +14,6 @@ def div_7_not_5():
     num_range = range(LOWER_BOUND, UPPER_BOUND+1)
     return [i for i in num_range if (i % 7 == 0) and (i % 5 != 0)]
 
-
 if __name__ == '__main__':
     for i in div_7_not_5():
-    	print(i)
+    	print(i, end=',')
