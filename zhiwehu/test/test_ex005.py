@@ -3,4 +3,6 @@ import pytest
 
 def test_string_holder():
     sh = StringHolder()
-    sh.printString()
+    sh.string = 'abcd'
+
+    assert sh.uppercase_string() == 'ABCD'

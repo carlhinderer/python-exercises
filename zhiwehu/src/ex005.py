@@ -11,14 +11,17 @@ class StringHolder:
     def __init__(self):
     	self.string = ''
 
-    def getString(self):
+    def get_string(self):
     	self.string = input('Enter a string: ')
 
-    def printString(self):
-    	print(self.string.upper())
+    def uppercase_string(self):
+        return self.string.upper()
+
+    def print_string(self):
+    	print(self.uppercase_string())
 
 
 if __name__ == '__main__':
 	sh = StringHolder()
-	sh.getString()
-	sh.printString()
+	sh.get_string()
+	sh.print_string()
