@@ -15,5 +15,5 @@ def div_7_not_5():
     return [i for i in num_range if (i % 7 == 0) and (i % 5 != 0)]
 
 if __name__ == '__main__':
-    for i in div_7_not_5():
-    	print(i, end=',')
+    single_line = ','.join(map(str, div_7_not_5()))
+    print(single_line)
