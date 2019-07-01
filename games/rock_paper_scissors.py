@@ -6,6 +6,7 @@ class RockPaperScissors:
 
     def __init__(self):
         self.player_points = 0
+        self.computer_points = 0
         self.still_playing = True
 
     def play_game(self):
@@ -38,13 +39,14 @@ class RockPaperScissors:
             self.player_points += 1
         elif winner == 'Computer':
             print('I win that round.\n')
-            self.player_points -= 1
+            self.computer_points += 1
 
     def evaluate_still_playing(self):
-        if self.player_points == -(self.BEST_OF):
+        points_to_win = self.BEST_OF // 2 + 1
+        if self.computer_points == points_to_win:
             self.still_playing = False
             print('I win.')
-        if self.player_points == self.BEST_OF:
+        if self.player_points == points_to_win:
             self.still_playing = False
             print('You win.')
 
