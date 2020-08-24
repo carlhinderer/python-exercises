@@ -9,6 +9,7 @@ class SinglyLinkedList:
     def __init__(self):
         self.head = None
 
+    # Append is O(n)
     def append(self, data):
         end = Node(data)
         if self.head is None:

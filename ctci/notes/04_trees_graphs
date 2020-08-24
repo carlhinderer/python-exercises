@@ -1,3 +1,44 @@
 ----------------------------------------------------------------
 | CH 4 - TREES & GRAPHS                                        |
 ----------------------------------------------------------------
+
+- Trees
+
+    1. Each tree has a root node.
+    2. The root nodes has 0 or more child nodes.
+    3. Each child node has 0 or more child nodes.
+
+    - A tree cannot contain cycles.
+    - A 'leaf' has no children.
+
+
+
+- Binary Search Trees
+
+    - Binary tree = each node has up to 2 children
+
+    - Binary search tree 
+        all_left_descendants <= n < all_right_descendants
+
+    - How balanced the tree needs to be depends on the problem.  Most of the time if
+        the tree is roughly balanced, it is good enough.  If you need a very balanced
+        tree, Red-Black Trees and AVL Trees are commonly used.
+
+    - A 'complete' binary tree is fully filled at every level, except possibly for the
+        last level.
+
+    - In a 'full' binary tree, every node has either 0 or 2 children.  No nodes have
+        1 child.
+
+    - A 'perfect' binary tree is both full and complete.  All leaf nodes are at the same
+        level, and this leaf level has the maximum number of nodes.
+
+
+
+- Binary Tree Traversal
+
+    - In-order Traversal = left branch, then current, then right branch
+
+    - Pre-order Traversal = current first, then left branch, then right branch
+
+    - Post-order Traversal = left branch, then right branch, then current
