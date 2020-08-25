@@ -42,3 +42,48 @@
     - Pre-order Traversal = current first, then left branch, then right branch
 
     - Post-order Traversal = left branch, then right branch, then current
+
+
+
+- Binary Heaps (Min-Heaps and Max-Heaps)
+
+    - A min-heap is a complete binary tree where each node is smaller than its children.  It
+        has 2 key operations:
+
+        1. insert
+
+             When we insert into a min-heap, we always start by inserting the element at the 
+               bottom rightmost spot.  Then, we swap the new element with it's parent until it is
+               in the correct position.  
+
+        2. extract minimum element
+
+             Finding the element is easy - it's the root node.  To remove it, we first swap it with
+               the last element in the tree.  Then, we move that node into it's correct position.
+
+
+
+- Tries (Prefix Trees)
+
+
+
+- Graphs
+
+    - A tree is a connected graph without cycles.  A graph is a collection of nodes with edges 
+        between them.  
+
+    - Graphs can be directed (1-way streets) or undirected (2-way streets).
+
+    - Graphs can consist of multiple isolated subgraphs.  If there is a path between every pair 
+        of vertices, the graph is 'connected'.
+
+    - Graphs can have cycles.  An 'acyclic' graph has no cycles.
+
+
+
+- Graph Representations
+
+    - Adjacency Lists
+
+        - Each node stores a list of adjacent vertices
+        - 
