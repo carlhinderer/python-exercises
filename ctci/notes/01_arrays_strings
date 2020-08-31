@@ -26,11 +26,155 @@
 
 - Hash Tables
 
+    - Here is a very simple implementation.
+
+        # Create a hash table of size 10
+        hash_table = [None] * 10
+
+
+        # Simple hash function uses modulo
+        def hashing_func(key):
+            return key % len(hash_table)
+         
+        print(hashing_func(10)) # Output: 0
+        print(hashing_func(20)) # Output: 0
+        print(hashing_func(25)) # Output: 5
+
+
+    - Inserting data into the hash table:
+
+        # Insert data into hash table
+        def insert(hash_table, key, value):
+            hash_key = hashing_func(key)
+            hash_table[hash_key] = value 
+         
+        insert(hash_table, 10, 'Nepal')
+        print (hash_table)
+        # Output: 
+        # ['Nepal', None, None, None, None, None, None, None, None, None]
+         
+        insert(hash_table, 25, 'USA')
+        print (hash_table)
+        # Output: 
+        # ['Nepal', None, None, None, None, 'USA', None, None, None, None]
+
+
+
+- Dealing with Collisions
+
+    - Now, we have to deal with collisions.  There are generally 2 ways to deal with 
+        collisions:
+
+        1. Linear probing
+        2. Chaining
+
+
+    - With linear probing, we can find the next open slot whenever there is a collision,
+        and store the item in that open slot.  To search for an item, we start in the 
+        the spot where it collided, and keep looking until we encounter an empty slot.
+
+
+    - With chaining, we create a linked list for each slot.
+
+        # Hash table is a list of lists
+        hash_table = [[] for _ in range(10)]
+        print(hash_table)
+
+
+        # Inserting into hash table
+        def insert(hash_table, key, value):
+            hash_key = hashing_func(key)
+            hash_table[hash_key].append(value)
+         
+        insert(hash_table, 10, 'Nepal')
+        insert(hash_table, 25, 'USA')
+        insert(hash_table, 20, 'India')
+        print (hash_table)
+
+        # Output: 
+        # [['Nepal', 'India'], [], [], [], [], ['USA'], [], [], [], []]
+
+
+
+- Standard Implementation of Hash Table
+
+    - We'll use Python's standard 'hash' function for hash values.
+
+        # Create a hash table
+        hash_table = [[] for _ in range(10)]
+        print(hash_table)
+
+
+        # Insert data into hash table (actually upsert)
+        def insert(hash_table, key, value):
+            hash_key = hash(key) % len(hash_table)
+            key_exists = False
+            bucket = hash_table[hash_key]    
+            for i, kv in enumerate(bucket):
+                k, v = kv
+                if key == k:
+                    key_exists = True 
+                    break
+            if key_exists:
+                bucket[i] = ((key, value))
+            else:
+                bucket.append((key, value))
+        
+        insert(hash_table, 10, 'Nepal')
+        insert(hash_table, 25, 'USA')
+        insert(hash_table, 20, 'India')
+        print (hash_table)
+        # Output:
+        # [[(10, 'Nepal'), (20, 'India')], [], [], [], [], [(25, 'USA')], [], [], [], []]
+
+
+        # Search the hash table
+        def search(hash_table, key):
+            hash_key = hash(key) % len(hash_table)    
+            bucket = hash_table[hash_key]
+            for i, kv in enumerate(bucket):
+                k, v = kv
+                if key == k:
+                    return v
+         
+        print(search(hash_table, 10)) # Output: Nepal
+        print(search(hash_table, 20)) # Output: India
+        print(search(hash_table, 30)) # Output: None
+
+
+        # Delete from the hash table
+        def delete(hash_table, key):
+            hash_key = hash(key) % len(hash_table)    
+            key_exists = False
+            bucket = hash_table[hash_key]
+            for i, kv in enumerate(bucket):
+                k, v = kv 
+                if key == k:
+                    key_exists = True 
+                    break
+            if key_exists:
+                del bucket[i]
+                print ('Key {} deleted'.format(key))
+            else:
+                print ('Key {} not found'.format(key))
+
+        delete(hash_table, 100)
+        print (hash_table)
+        # Output:
+        # Key 100 not found
+        # [[(10, 'Nepal'), (20, 'India')], [], [], [], [], [(25, 'USA')], [], [], [], []]
+         
+        delete(hash_table, 10)
+        print (hash_table)
+        # Output:
+        # Key 10 deleted
+        # [[(20, 'India')], [], [], [], [], [(25, 'USA')], [], [], [], []]
+
+
+
 - ArrayList and Resizable Arrays
 
 - StringBuilder
-
-
 
 
 - Interview Questions 
