@@ -2,6 +2,27 @@
 # http://blog.chapagain.com.np/hash-table-implementation-in-python-data-structures-algorithms/
 
 
+# Uses chaining
+class ChainHashTable:
+    def __init__(self, size=10):
+        self.hash_table = [[] for _ in range(size)]
+
+    def hash_func(self, key):
+        return key % len(self.hash_table)
+
+    def insert(self, key, val):
+        hash_key = self.hash_func(key)
+        self.hash_table[hash_key].append(val)
+
+    def search(self, key, val):
+        hash_key = self.hash_func(key)
+        bucket = self.hash_table[hash_key]
+        for i in bucket:
+            if i == val:
+                return True
+        return False
+
+
 # Uses standard library hash function
 class StandardHashTable:
     def __init__(self, size=10):
