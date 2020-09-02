@@ -2,6 +2,34 @@
 # http://blog.chapagain.com.np/hash-table-implementation-in-python-data-structures-algorithms/
 
 
+# Uses linear probing
+class LPHashTable:
+    def __init__(self, size=10):
+        self.hash_table = [None] * size
+
+    def hash_func(self, key):
+        return key % len(self.hash_table)
+
+    def insert(self, key, val):
+        starting_place = self.hash_func(key)
+        for i in range(len(self.hash_table)):
+            slot = (starting_place + i) % len(self.hash_table)
+            if self.hash_table[slot] is None:
+                self.hash_table[slot] = val
+                return
+        raise IndexError
+
+    def search(self, key, val):
+        starting_place = self.hash_func(key)
+        for i in range(len(self.hash_table)):
+            slot = (starting_place + i) % len(self.hash_table)
+            if self.hash_table[slot] == val:
+                return True
+            if self.hash_table[slot] is None:
+                return False
+        return False
+
+
 # Uses chaining
 class ChainHashTable:
     def __init__(self, size=10):
