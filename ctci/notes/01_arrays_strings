@@ -172,9 +172,41 @@
 
 
 
-- ArrayList and Resizable Arrays
+- Resizable Arrays
 
-- StringBuilder
+
+
+- Python bytearrays
+
+    - A bytearray is an array of bytes.  It can be modified in place, unlike strings.
+
+        # Create a bytearray from a string
+        >>> string = "Python is interesting."
+        >>> arr = bytearray(string, 'utf-8')
+
+        >>> print(arr)
+        bytearray(b'Python is interesting.')
+
+
+        # Create an empty bytearray of a specified size
+        >>> size = 5
+        >>> arr = bytearray(size)
+
+        >>> print(arr)
+        bytearray(b'\x00\x00\x00\x00\x00')
+
+
+        # Create a bytearray from a list
+        >>> rList = [1, 2, 3, 4, 5]
+        >>> arr = bytearray(rList)
+
+        >>> print(arr)
+        bytearray(b'\x01\x02\x03\x04\x05')
+
+
+        # Update a bytearray in place
+        >>> arr[0] = ord('H')
+
 
 
 - Interview Questions 
@@ -187,7 +219,7 @@
     
     1.2 Check Permutation: 
     
-    Given two strings, write a method to decide if one is a  permutation of the other. 
+    Given two strings, write a method to decide if one is a permutation of the other. 
     
     
     1.3 URLify: 

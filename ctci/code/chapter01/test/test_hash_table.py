@@ -13,8 +13,8 @@ def test_setitem():
 
 def test_getitem():
     ht = HashTable()
-    ht['foo'] = 'bar'
 
+    ht['foo'] = 'bar'
     assert(ht['foo'] == 'bar')
 
     with pytest.raises(KeyError):
