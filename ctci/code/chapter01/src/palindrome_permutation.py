@@ -8,6 +8,7 @@
 #
 #   EXAMPLE Input: Tact Coa Output: True (permutations: "taco cat". "atco cta". etc.)   
 #
+
 from collections import Counter
 
 def palindrome_permutation(s):
