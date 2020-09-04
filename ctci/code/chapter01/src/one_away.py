@@ -10,6 +10,7 @@
 #           pale. bale -> true 
 #           pale. bake -> false 
 #
+
 import string
 
 CHARSET = string.ascii_lowercase + string.ascii_uppercase + ' '
@@ -17,6 +18,9 @@ CHARSET = string.ascii_lowercase + string.ascii_uppercase + ' '
 def one_away(s1, s2):
     if s1 == s2:
         return True
+    for char in CHARSET:
+        if (char + s1) == s2:
+            return True
     for i, c in enumerate(s1):
         if s1.replace(c, '', 1) == s2:
             return True
