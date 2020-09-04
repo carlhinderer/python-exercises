@@ -17,7 +17,7 @@ def compress(s):
             current_count += 1
         else:
             if current_letter:
-                compressed = compressed.extend([current_letter, current_count])
+                compressed = '{}{}{}'.format(compressed, current_letter, current_count)
                 current_letter = ''
                 current_count = 0
             current_letter = c
