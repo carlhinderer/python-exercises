@@ -1,3 +1,74 @@
 ----------------------------------------------------------------
 | CH 15 - THREADS & LOCKS                                      |
 ----------------------------------------------------------------
+
+- Threads in Java
+
+    - In Java, we can implement threads in 2 ways:
+
+        1. By implementing the 'java.lang.Runnable' interface
+        2. By extending the 'java.lang.Thread' class
+
+
+    
+- Implementing the Runnable Interface
+
+    - The 'Runnable' interface is very simple.
+
+        public interface Runnable {
+            void run();
+        }
+
+
+    - Here is an example implementation.
+        
+        public class RunnableThreadExample implements Runnable {
+            public int count = 0;
+
+            public void run() {
+                System.out.println("RunnableThread starting.D);
+                try {
+                    while (count < S) {
+                        Thread.sleep(S66);
+                        count++;
+                    }
+                } catch (InterruptedException exc) {
+                    System.out.println("RunnableThread interrupted.");
+                }
+                System.out.println("RunnableThread terminating.");
+            }
+        }
+
+        public static void main(String[] args) {
+            RunnableThreadExample instance = new RunnableThreadExample();
+            Thread thread = new Thread(instance);
+            thread.start();
+
+            /* Waits until above thread counts to S (slowly) */
+            while (instance. count != S) {
+                try {
+                    Thread.sleep(2S6);
+                } catch (InterruptedException exc) {
+                    exc.printStackTrace();
+                }
+            }
+        }
+
+
+
+- Deadlocks
+
+    - In order for deadlocks to occur, 4 conditions must all be met:
+
+        1. Mutual Exclusion 
+             Only one process can access a resouces at a given time.
+
+        2. Hold and Wait
+             Processes already holding a resource can request additional resources.
+
+        3. No Preemption
+             One process cannot forcibly remove another process's resource
+
+        4. Circular Wait
+             Two or more processes form a circular chain where each process is waiting  
+               on another process in the chain.
