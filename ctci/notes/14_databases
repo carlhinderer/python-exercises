@@ -52,7 +52,7 @@
     FROM Students 
       INNER JOIN StudentCourses
       ON Students.StudentID = StudentCourses.StudentID
-    GROUP BY Students.StudentID
+    GROUP BY Students.StudentID;
 
     The above solution has 3 problems:
 
@@ -74,14 +74,14 @@
         LEFT JOIN StudentCourses
         ON Students.StudentID = StudentCourses.StudentID
         GROUP BY Students.StudentID
-      ) T INNER JOIN Students on T.studentID = Students.StudentID
+      ) T INNER JOIN Students on T.studentID = Students.StudentID;
 
     /* Solution 2 - Add StudentName to a GROUP BY clause */
     SELECT StudentName, Students.StudentID, count(StudentCourses.CourseID) as [Cnt]
     FROM Students 
       LEFT JOIN StudentCourses
       ON Students.StudentID = StudentCourses.StudentID
-    GROUP BY Students.StudentID, Students.StudentName
+    GROUP BY Students.StudentID, Students.StudentName;
 
     /* Solution 3 - Wrap with aggregate function. */
     SELECT max(StudentName) as [StudentName], 
@@ -90,7 +90,7 @@
     FROM Students 
       LEFT JOIN StudentCourses
       ON Students.StudentID = StudentCourses.StudentID
-    GROUP BY Students.StudentID
+    GROUP BY Students.StudentID;
 
 
 
@@ -105,7 +105,7 @@
       FROM Courses 
         INNER JOIN StudentCourses
         ON Courses.CourseID = StudentCourses.CourseID
-      GROUP BY Courses.TeacherID
+      GROUP BY Courses.TeacherID;
 
       /* Now, we'll also include teachers who aren't teaching classes */
       SELECT TeacherName, isnull(StudentSize.Number, 0)
@@ -116,23 +116,51 @@
                      ON Courses.CourseID = StudentCourses.CourseID
                    GROUP BY Courses.TeacherID) StudentSize 
         ON Teachers.TeacherID = StudentSize.TeacherID
-      ORDER BY StudentSize.Number DESC
+      ORDER BY StudentSize.Number DESC;
 
 
 
 - Small Database Design
 
+    1. Handle ambiguity
+    2. Define the core objects
+    3. Analyze relationships
+    4. Investigate actions
+
 
 
 - Large Database Design
+
+    - Pretty much always requires denormalizaiton.
 
 
 
 - Interview Questions
 
+    [Schema]
+    /* A tenant can rent multiple apartments */
+
+    Complexes [ComplexId*, ComplexName]
+    Buildings [BuildingId*, ComplexId, BuildingName, BuildingAddress]
+    Apartments [ApartmentId*, UnitNumber, BuildingId]
+    Tenants [TenantId*, TenantName, TenantAddress]
+    TenantApartments [TenantId*, ApartmentId*]
+    Requests [RequestId*, Status, ApartmentId, Description]
+
+
+
     14.1 Multiple Apartments: 
 
     Write a SQL query to get a list of tenants who are renting more than one apartment. 
+
+    SELECT T.TenantName
+    FROM Tenants T
+        INNER JOIN (SELECT TenantID
+                    FROM TenantApartments
+                    GROUP BY TenantId
+                    HAVING count(*) > 1) C
+        ON T.TenantId = C.TenantId;
+
 
 
     14.2 Open Requests: 
@@ -140,11 +168,27 @@
     Write a SQL query to get a list of all buildings and the number of 
       open requests (Requests in which status equals 'Open').
 
+    SELECT BuildingName, ISNULL(Count, 0) as 'Count'
+    FROM Buildings
+        LEFT JOIN (SELECT Apartments.BuildingID, count(*) as 'Count'
+                   FROM Requests 
+                       INNER JOIN Apartments
+                       ON Requests.AptID = Apartments.AptID
+                    WHERE Requests.Status = 'Open'
+                    GROUP BY Apartments.BuildingID) ReqCounts
+        ON ReqCounts.BuildingID = Buildings.BuildingID;
+
+
 
     14.3 Close All Requests: 
 
     Building #11 is undergoing a major renovation. Implement a query to close all requests 
       from apartments in this building.
+
+    UPDATE Requests
+    SET Status = 'Closed'
+    WHERE Requests.ApartmentId IN (SELECT ApartmentId FROM Apartments WHERE BuildingId = 11);
+
 
 
     14.4 Joins: 
