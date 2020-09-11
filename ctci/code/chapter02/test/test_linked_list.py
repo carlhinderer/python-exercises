@@ -19,6 +19,12 @@ def test_linked_list_append():
 def test_linked_list_delete():
     l = SinglyLinkedList()
     l.append('abc')
+    l.delete('abc')
+
+    assert(not l.contains('abc'))
+    
+    l = SinglyLinkedList()
+    l.append('abc')
     l.append('def')
     l.delete('abc')
 
